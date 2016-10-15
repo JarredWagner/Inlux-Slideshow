@@ -1,3 +1,3 @@
-# inluxSlideshow
+# Inlux Slideshow
 
 A jQuery Image Slideshow
