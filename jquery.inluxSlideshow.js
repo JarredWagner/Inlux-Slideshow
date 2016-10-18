@@ -218,7 +218,6 @@ function imageCount() {
   var activeClassIndex = $(activeClass).index() + 1;
   var imgIndex = $(imgSelector).length;
   $(imageCountSelector).html("<span>"+activeClassIndex+"</span> / <span>"+imgIndex+"</span>");
-
 }
 
 function slide(selector, left, speed, easing) {
@@ -778,7 +777,7 @@ function resizeBurlington() {
   $(progressBarSelector).css("left", progressPosition + "px");
 
   //Hide Arrows for Mobile
-  if (windowWidth <= 768) {
+  if (windowWidth <= 1024) {
     $(pArrowSelector+", "+nArrowSelector).css("display", "none");
   } else {
     $(pArrowSelector+", "+nArrowSelector).css("display", "block");
@@ -822,7 +821,7 @@ function loadBurlington() {
 
       var ogRatio = $(imgSelector + ":eq(0)").width() / $(imgSelector + ":eq(0)").height();
 
-      //lazyLoad();
+      lazyLoad();
       //Resize and Place Images
       scaleImages();
       //Set Up Slideshow, Array, Buttons
@@ -849,7 +848,7 @@ function loadBurlington() {
         //if so, resize and re-prep slideshow and finish loading
       } else if (ogRatio !== newRatio) {
 
-        //lazyLoad();
+        lazyLoad();
         //Resize and Place Images
         scaleImages();
         //Set Up Slideshow, Array, Buttons
