@@ -109,9 +109,9 @@ function styleDOM() {
 function lazyLoad() {
 
   $(imgSelector).each(function(){
-    var src = $(this).attr("src");
-    $(this).attr("data-src", src);
     if ($(this).index() > 3) {
+      var src = $(this).attr("src");
+      $(this).attr("data-src", src);
       $(this).attr("src", "");
     }
   });
@@ -132,8 +132,13 @@ function scaleImages() {
   //Process each image
   $(imgSelector).each(function(){
 
-    var thisWidth = $(this)[0].naturalWidth;
-    var thisHeight = $(this)[0].naturalHeight;
+    // var thisWidth = $(this)[0].naturalWidth;
+    // var thisHeight = $(this)[0].naturalHeight;
+
+    //Must use width and height attributes for lazy loading.  Naturals only available on Load, defeating the purpose.
+
+    var thisWidth = $(this).attr("width");
+    var thisHeight = $(this).attr("height");
 
     //Get Aspect Ratios
     var ratioWide = (thisWidth / thisHeight).toFixed(2);
@@ -253,10 +258,11 @@ function nextBtn() {
   var nextImage = activeClassIndex + 1;
 
   //Lazy Load
-  // var lazyImageIndex = activeClassIndex + 3;
-  // var lazyImage = imgSelector+":eq("+[lazyImageIndex]+")"
-  // var lazySrc = $(lazyImage).attr("data-src");
-  // $(lazyImage).attr("src", lazySrc);
+  var lazyImageIndex = activeClassIndex + 3;
+  var lazyImage = imgSelector+":eq("+[lazyImageIndex]+")"
+  var lazySrc = $(lazyImage).attr("data-src");
+  $(lazyImage).attr("src", lazySrc);
+  $(lazyImage).removeAttr("data-src");
 
   //Image Margin-Right
   var imgMargin = parseInt( $(imgSelector).css("margin-right") );
@@ -571,7 +577,6 @@ function keyCommands() {
 
 function prepSlideShow() {
 
-  console.log ("prepSlideShow running")
   //Get Window Sizes
 
   //Gather Window Sizes
@@ -823,7 +828,7 @@ function loadBurlington() {
       //Set Up Slideshow, Array, Buttons
       imgContainerWidth();
       //Set the first image to current to start
-      //prepSlideShow();
+      prepSlideShow();
       //Center the slideshow
       resizeBurlington();
       //Bind Play/Stop Buttons
@@ -837,6 +842,7 @@ function loadBurlington() {
       //if not, let's roll
       if (ogRatio===newRatio) {
 
+        resizeBurlington();
         //Fade it in
         fadeInGallery();
 
