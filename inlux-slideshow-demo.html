@@ -74,12 +74,7 @@
 		<div id="photos">
 
 			{% for image in craft.assets.source('devImages').limit('500') %}
-        <img
-        	src="{{ image.getUrl() }}"
-        	alt="{{ image.filename }}"
-        	{# width="{{ image.width }}"
-					height="{{ image.height }}" #}
-        />
+        <img src="{{ image.url }}" alt="{{ image.filename }}" width="{{ image.width }}" height="{{ image.height }}" / >
       {% endfor %}
 
 		</div>
