@@ -28,7 +28,7 @@ var galleryLoadDelay = 1000;
 
 //Selectors
 
-var baseDiv = "#photos";
+var baseDiv = "#demo-photos";
 var loadingGif = ".loader";
 var loadingFA = "<i class='loader fa fa-circle-o-notch fa-spin'></i>"
 var pBtnFA = "<i class='fa fa-angle-left'></i>"
@@ -57,6 +57,10 @@ var pArrowSelector = ".pBtn i"
 var nArrowSelector = ".nBtn i"
 var navHeight = $("nav").outerHeight();
 var footerHeight = navHeight;
+if ( $(window).width() < 768 ) {
+  console.log('mobile')
+  footerHeight = navHeight/1.4;
+}
 var footer = "";
 
 //FUNCTION PARTY
@@ -83,6 +87,7 @@ function buildDOM() {
 function styleDOM() {
 
   $("html, body").css("height", "100%").css("overflow", "hidden");
+  $("body").css('position', 'relative');
   $(baseDiv).css("display", "flex").css("align-items", "center")
   $(container)
     .css("display", "flex")
@@ -783,7 +788,7 @@ function resizeBurlington() {
     $(pArrowSelector+", "+nArrowSelector).css("display", "block");
   }
 
-  var arrowTop = (windowHeight - $(nBtn).height())/2 - navHeight + imgBorder + imgBorder
+  var arrowTop = (windowHeight - $(nBtn).height())/2 - navHeight //+ imgBorder + imgBorder
   $(pArrowSelector+", "+nArrowSelector).css("position", "fixed").css("top", arrowTop);
 
 
@@ -848,7 +853,6 @@ function loadBurlington() {
         //if so, resize and re-prep slideshow and finish loading
       } else if (ogRatio !== newRatio) {
 
-        lazyLoad();
         //Resize and Place Images
         scaleImages();
         //Set Up Slideshow, Array, Buttons
@@ -876,7 +880,7 @@ function startLoading() {
   $(container).css("visibility", "hidden");
 
   // //Determine centered positioning
-  var loadingGifTop = ( ($(window).height()/2) - $(loadingGif).height()/2) + $("nav").height();
+  var loadingGifTop = ( ($(window).height()/2) - $(loadingGif).height()/2);
   var loadingGifLeft = ( ($(window).width()/2) - $(loadingGif).width()/2);
 
   //Center and show
